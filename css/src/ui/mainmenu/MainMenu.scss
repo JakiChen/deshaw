@@ -1,0 +1,671 @@
+$dot_offset: 23px;
+.MainMenu {
+	position: fixed;
+	right: 0;
+	top: 0;
+	z-index: 6;
+
+	@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+		z-index: 10;
+	}
+
+	@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) {
+		&:not(.active) {
+			.main-navigation .menu-item:after {
+				transition: border 0.2s;
+			}
+		}
+		.main-navigation .menu-item {
+			&.active:before {
+				transition: border 0.2s;
+			}
+			&:before {
+				transition: background 0.2s;
+			}
+		}
+		&.light {
+			&:not(.active) {
+				.main-navigation .menu-item .main-title:after {
+					border-color: $COLOR_WHITE !important;
+				}
+			}
+			.main-navigation .menu-item {
+				.main-title.active:before {
+					border-color: $COLOR_WHITE;
+				}
+				.main-title:before {
+					background: $COLOR_WHITE;
+				}
+
+				a {
+					color: $COLOR_WHITE;
+				}
+
+				.sub-menu a:hover {
+					color: $COLOR_WHITE;
+				}
+
+				.main-title {
+					svg {
+						fill: $COLOR_WHITE;
+					}
+
+					&.active > a {
+						color: $COLOR_WHITE;
+					}
+
+					.sub-menu a:hover {
+						color: $COLOR_BG;
+					}
+
+					.sub-menu a.highlight {
+						color: $COLOR_WHITE;
+					}
+				}
+			}
+		}
+	}
+
+	@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+		&.mobile-light .mobile-burger-menu {
+			.mobile-bar {
+				background: $COLOR_WHITE;
+			}
+		}
+
+		&.mobile-index {
+			z-index: 6;
+		}
+	}
+
+	// UPDATE MAIN TITLE
+	.main-title {
+		pointer-events: none;
+		& > a {
+			pointer-events: all;
+			color: $COLOR_BG;
+
+			@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+				color: $COLOR_WHITE;
+			}
+		}
+	}
+
+	.main-navigation {
+		.menu-item {
+			.main-title {
+				position: relative;
+
+				& > a {
+					transition: 150ms color $ease-out-quad;
+					&:hover {
+						color: $COLOR_BLUE_MAIN;
+					}
+				}
+
+				&:after, &:before {
+					display: none;
+				}
+				&.active {
+					& > a {
+						color: $COLOR_BLUE_MAIN;
+					}
+
+					svg {
+						transform: rotate(90deg);
+					}
+				}
+
+				svg {
+					pointer-events: all;
+					cursor: pointer;
+					height: 10px;
+					width: 8px;
+					position: absolute;
+					left: -17px;
+					top: 10px;
+					transition: 150ms transform $ease-out-quad;
+
+					@media screen and (max-width: $BREAKPOINT_DESKTOP) {
+						top: 7px;
+					}
+
+					@media screen and (max-width: $BREAKPOINT_TABLET_LANDSCAPE) {
+						top: 5px;
+					}
+
+					@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+						display: none;
+					}
+				}
+			}
+		}
+	}
+
+	a {
+		display: block;
+		text-decoration: none;
+	}
+
+	.mobile-burger-menu {
+		position: fixed;
+		z-index: 2;
+		top: 0;
+		right: 0;
+		height: 12px;
+		width: 25px;
+		box-sizing: content-box;
+		display: flex;
+		justify-content: space-between;
+		flex-flow: column;
+		padding-left: 15px;
+		padding-right: $MOBILE_PADDING;
+		padding-top: 30px;
+		padding-bottom: 20px;
+		cursor: pointer;
+
+		&.light {
+			.mobile-bar {
+				background: $COLOR_WHITE;
+			}
+		}
+
+		@media screen and (min-width: $BREAKPOINT_TABLET_PORTRAIT) {
+			padding-right: $TABLET_PADDING;
+		}
+
+		.mobile-bar {
+			width: 25px;
+			height: 2px;
+			background: $COLOR_WHITE;
+			display: block;
+			will-change: transform;
+			transition: transform 0.1s, background 0.4s;
+			&:nth-of-type(1) {
+				transform: translate3d(0, 0, 0);
+				transform-origin: 0% 50%;
+			}
+			&:nth-of-type(2) {
+				transition: transform 0.1s;
+				transform-origin: 50% 50%;
+			}
+			&:nth-of-type(3) {
+				transform: translate3d(0, 0, 0);
+				transform-origin: 0% 50%;
+			}
+		}
+		@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU + 1px) {
+			display: none;
+		}
+	}
+	.logo-mobile {
+		position: fixed;
+		top: 17px;
+		z-index: 6;
+		display: block;
+		a {
+			display: inline-block;
+			img {
+				width: 115px;
+
+			}
+		}
+
+		@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU + 1px) {
+			display: none;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+			left: $TABLET_PADDING;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_TABLET_PORTRAIT) {
+			left: 10px;
+		}
+	}
+
+	nav {
+		position: fixed;
+		right: 0;
+		z-index: 0;
+		transform: translate3d(-100%, 0, 0);
+		background: $COLOR_BG;
+		height: 100vh;
+		padding-left: calc(50% - #{$dot_offset});
+		padding-top: calc(50vh - #{36 * 4.5}px);
+		transition: opacity 0.4s, transform 0s 0.5s;
+		opacity: 0;
+		pointer-events: none;
+		width: 175px;
+		display: block;
+
+		.home-background-fade {
+			box-shadow: -75px 51px 85px rgba($COLOR_BG, 0.55);
+			background: rgba($COLOR_BG, 0.55);
+			position: absolute;
+			top: 0;
+			right: -50%;
+			height: 110%;
+			z-index: 0;
+			display: none;
+
+			&.active {
+				display: block;
+			}
+		}
+
+		&:after {
+			content: '';
+			background: #000000;
+			transform: translate3d(0, 0, 0);
+			transition: opacity 1s $ease-out-sine;
+			opacity: 1;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP) {
+			width: 220px;
+		}
+
+		@media screen and (min-width: $BREAKPOINT_TABLET_LANDSCAPE + 1) and (max-width: 1200px){
+			width: 200px;
+		}
+
+		@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) and (max-width: $BREAKPOINT_TABLET_LANDSCAPE){
+			width: 185px;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+			width: 100%;
+		}
+
+		@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU + 1) {
+			transform: translate3d(0, 0, 0);
+			box-sizing: content-box;
+			height: auto;
+			padding-left: 0;
+			padding-top: 0;
+			transition: none;
+			opacity: 1;
+			background: none;
+			&:after {
+				display: none;
+			}
+		}
+
+		@media screen and (min-width: $BREAKPOINT_DESKTOP + 1px) {
+			padding-right: 60px;
+		}
+
+		@media screen and (min-width: $BREAKPOINT_MAX_WIDTH) {
+			right: calc(50% - #{$BREAKPOINT_MAX_WIDTH / 2});
+		}
+	}
+
+	.sub-navigation {
+		font-size: 15px;
+		line-height: 22px;
+		letter-spacing: 0.01em;
+		margin-bottom: 37px;
+		position: absolute;
+		top: calc(50vh + 90px);
+		padding-left: $dot_offset;
+		pointer-events: all;
+
+		@media screen and (max-height: 400px) {
+			top: calc(100vh - 84px);
+		}
+
+		li.active a {
+			color: $COLOR_BLUE_MAIN;
+		}
+
+		a {
+			color: $COLOR_GREY-1;
+			pointer-events: all;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP) {
+			font-size: 14px;
+			line-height: 20px;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU - 1) {
+			font-size: 16px;
+			line-height: 22px;
+		}
+
+		@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) {
+			position: static;
+			margin-bottom: 45px;
+			margin-top: 55px;
+
+			li {
+				position: relative;
+			}
+		}
+
+	}
+
+	.main-navigation {
+		font-size: 20px;
+		line-height: 29px;
+		pointer-events: all;
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP) {
+			font-size: 18px;
+			line-height: 26px;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_TABLET_LANDSCAPE) {
+			font-size: 16px;
+			line-height: 22px;
+		}
+
+		@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+			font-size: 25px;
+			line-height: 36px;
+		}
+		.menu-item {
+			position: relative;
+			overflow: hidden;
+			padding-left: $dot_offset;
+			transition: color 0.4s;
+			@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) {
+				overflow: visible;
+			}
+			/*
+            &:hover {
+                .sub-menu {
+                    display: block;
+                    opacity: 1;
+                    height: auto;
+                }
+            }
+            */
+
+			&.hover-triggered {
+				.main-title svg {
+					transform: rotate(90deg);
+				}
+
+				.sub-menu {
+					display: block;
+					opacity: 1;
+					height: auto;
+				}
+			}
+
+			& > a {
+				pointer-events: all;
+				display: block;
+				opacity: 0;
+				transition: opacity 0.3s, transform 0.3s $ease-out-quad, color 0.3s $ease-out-quad;
+				transform: translate3d(0, -100%, 0);
+				//color: #FFFFFF;
+				@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) {
+					opacity: 1;
+					//transition: none;
+					transform: none;
+				}
+			}
+
+			.sub-menu {
+				height: 0;
+				pointer-events: none;
+				opacity: 0;
+				overflow: hidden;
+				transition: opacity 0.3s $ease-out-quad, transform 0.3s $ease-out-quad, height 0.3s $ease-out-quad;
+
+				@media screen and (max-width: $BREAKPOINT_DESKTOP_MENU) {
+					display: none;
+				}
+
+				a {
+					font-size: 15px;
+					line-height: 22px;
+					color: $COLOR_GREY-1;
+					display: block;
+					transition: 150ms color $ease-out-quad;
+					pointer-events: all;
+					@media screen and (max-width: $BREAKPOINT_DESKTOP) {
+						font-size: 14px;
+						line-height: 20px;
+					}
+
+					@media screen and (max-width: $BREAKPOINT_TABLET_LANDSCAPE) {
+						font-size: 13px;
+						line-height: 19px;
+					}
+				}
+			}
+
+			.main-title {
+
+				&.highlight {
+					& > a {
+						color: $COLOR_BLUE_MAIN;
+					}
+				}
+
+				&.active {
+					.sub-menu {
+						opacity: 1;
+						margin-bottom: 10px;
+						height: auto;
+						pointer-events: auto;
+					}
+
+					&:before {
+						opacity: 1;
+						border: 1px solid $COLOR_BLUE_MAIN;
+					}
+					&:after {
+						opacity: 0;
+					}
+				}
+
+			}
+		}
+	}
+
+	&.active {
+		.mobile-burger-menu {
+			.mobile-bar {
+				background: $COLOR_WHITE;
+			}
+			.mobile-bar:nth-of-type(1) {
+				transform: translate3d(5px, 0, 0) rotate(45deg) scaleX(#{calc(15.5/25)});
+			}
+			.mobile-bar:nth-of-type(2) {
+				transform: scaleX(0);
+			}
+			.mobile-bar:nth-of-type(3) {
+				transform: translate3d(5px, 1px, 0) rotate(-45deg) scaleX(#{calc(15.5/25)});
+			}
+		}
+
+		nav {
+			transition: opacity 0.2s, transform 0s 0.5s;
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+			transition-delay: 0s;
+			width: 100%;
+			&:after {
+				opacity: 0;
+			}
+		}
+
+		.main-navigation {
+			& .menu-item {
+				&.active {
+					&:before {
+						opacity: 1;
+						transform: translate3d(0, 0, 0) scale(1);
+					}
+				}
+				&:nth-child(1) a {
+					//transition-delay: 0.1s;
+					transition: opacity 0.4s, transform 0.55s $ease-out-quad;
+
+				}
+				&:nth-child(2) a {
+					//transition-delay: 0.2s;
+					transition: opacity 0.4s, transform 0.5s $ease-out-quad;
+
+				}
+				&:nth-child(3) a {
+					//transition-delay: 0.3s;
+					transition: opacity 0.4s, transform 0.45s $ease-out-quad;
+
+				}
+				&:nth-child(4) a {
+					//transition-delay: 0.4s;
+					transition: opacity 0.4s, transform 0.4s $ease-out-quad;
+
+				}
+				& a {
+					//transition: opacity 0.4s, transform 0.5s $ease-out-quad;
+					transform: translate3d(0, 0, 0);
+					opacity: 1;
+				}
+			}
+		}
+
+	}
+}
+
+body.page-light, body.page-grey {
+	.mobile-burger-menu .mobile-bar {
+		background: $COLOR_BG;
+	}
+
+	.MainMenu:not(.active) {
+		.sub-navigation li:not(.active) a:hover {
+			color: $COLOR_BG;
+		}
+	}
+
+	.menu-item {
+		& > a {
+			color: $COLOR_BG;
+		}
+
+		.main-title:after {
+			border: 1px solid $COLOR_BG;
+		}
+
+		.sub-menu a {
+			&:hover {
+				color: $COLOR_BG;
+			}
+
+			&.highlight {
+				color: $COLOR_BG;
+			}
+		}
+	}
+
+	.MainMenu.active .sub-navigation .main-item:not(.active) a:hover,
+	.MainMenu.active .main-navigation .menu-item a {
+		color: $COLOR_WHITE;
+	}
+
+	.MainMenu:not(.light) .main-navigation .menu-item .main-title.active > a {
+		color: $COLOR_BLUE_MAIN;
+	}
+
+	.MainMenu.light .main-navigation .menu-item .main-title.active > a {
+		color: $COLOR_WHITE;
+	}
+
+	.MainMenu.active .main-navigation .menu-item .main-title:after {
+		border-color: $COLOR_WHITE;
+	}
+
+	.main-navigation .menu-item .main-title svg {
+		fill: $COLOR_BLUE_MAIN;
+	}
+}
+
+body.page-blue {
+	background: $COLOR_BLUE_MAIN;
+	color: $COLOR_WHITE;
+	.logo path {
+		fill: $COLOR_WHITE;
+	}
+	.MainMenu .main-navigation {
+		.menu-item {
+			.main-title {
+				& > a {
+					&:hover {
+						color: $COLOR_WHITE;
+					}
+				}
+			}
+
+		}
+	}
+
+	.MainMenu .sub-navigation a {
+		color: $COLOR_WHITE;
+	}
+}
+
+body.page-dark, body.page-blue {
+	.mobile-burger-menu .mobile-bar {
+		background: $COLOR_WHITE;
+	}
+
+	.sub-navigation a:hover {
+		color: $COLOR_WHITE;
+	}
+
+	.menu-item {
+		.main-title & > a {
+			color: $COLOR_WHITE;
+		}
+
+		&:after {
+			border: 1px solid $COLOR_WHITE;
+		}
+
+		.sub-menu a {
+			&:hover {
+				color: $COLOR_WHITE;
+			}
+
+			&.highlight {
+				color: $COLOR_WHITE;
+			}
+		}
+	}
+
+	.main-navigation .menu-item .main-title svg {
+		fill: $COLOR-WHITE;
+	}
+
+	@media screen and (min-width: $BREAKPOINT_DESKTOP_MENU) {
+		.main-navigation a {
+			color: $COLOR_WHITE;
+		}
+	}
+}
+.masked-menu-container {
+	.MainMenu .main-navigation {
+		.menu-item {
+			.main-title {
+				& > a {
+					&:hover {
+						color: $COLOR_WHITE;
+					}
+				}
+			}
+
+		}
+	}
+}

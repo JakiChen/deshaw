@@ -1,0 +1,8 @@
+# www.robotstxt.org/
+
+User-agent: *
+Disallow: /recruit/
+Disallow: /maintenance/
+Disallow: /glg-privacy-notice
+Disallow: /third-bridge-privacy-notice
+Disallow: /tmug
